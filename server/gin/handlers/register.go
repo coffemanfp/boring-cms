@@ -52,7 +52,7 @@ func (r Register) readClient(c *gin.Context) (client client.Client, ok bool) {
 func (r Register) createNewClient(c *gin.Context, clientR client.Client) (cl client.Client, ok bool) {
 	cl, err := client.New(clientR)
 	if err != nil {
-		err = errors.NewHTTPError(http.StatusBadRequest, err.Error())
+		err = errors.NewHTTPError(http.StatusUnprocessableEntity, err.Error())
 		handleError(c, err)
 		return
 	}

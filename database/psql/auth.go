@@ -33,7 +33,7 @@ func NewAuthRepository(conn *PostgreSQLConnector) (repo database.AuthRepository,
 func (ar AuthRepository) GetIdAndHashedPassword(auth auth.Auth) (id int, hashed string, err error) {
 	table := "client"
 	query := `
-		select id, password from client where nickname = $1
+		select id, password from client where username = $1
 	`
 
 	err = ar.db.QueryRow(query, auth.Username).Scan(&id, &hashed)
@@ -44,9 +44,6 @@ func (ar AuthRepository) GetIdAndHashedPassword(auth auth.Auth) (id int, hashed 
 }
 
 func (ar AuthRepository) Register(client client.Client) (id int, err error) {
-	fmt.Println("Contraseña a registrar:")
-	fmt.Println(client.Auth.Password)
-	fmt.Println(client.Password)
 	table := "client"
 	query := fmt.Sprintf(`
 		insert into

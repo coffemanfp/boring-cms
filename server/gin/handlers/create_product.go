@@ -49,7 +49,7 @@ func (ct CreateProduct) createProduct(c *gin.Context, pr product.Product) (p pro
 
 	p, err := product.New(pr)
 	if err != nil {
-		err = errors.NewHTTPError(http.StatusBadRequest, err.Error())
+		err = errors.NewHTTPError(http.StatusUnprocessableEntity, err.Error())
 		handleError(c, err)
 		return
 	}
