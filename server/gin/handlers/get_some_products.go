@@ -21,12 +21,14 @@ func (gsp GetSomeProducts) Do(c *gin.Context) {
 		return
 	}
 
-	ls, ok := gsp.getFromDB(c, repo, page)
+	ps, ok := gsp.getFromDB(c, repo, page)
 	if !ok {
 		return
 	}
 
-	c.JSON(http.StatusOK, ls)
+	ps = gsp.generateDiscount(ps)
+
+	c.JSON(http.StatusOK, ps)
 }
 
 func (gsp GetSomeProducts) getFromDB(c *gin.Context, repo database.ProductRepository, page int) (ps []*product.Product, ok bool) {
@@ -36,5 +38,16 @@ func (gsp GetSomeProducts) getFromDB(c *gin.Context, repo database.ProductReposi
 		return
 	}
 	ok = true
+	return
+}
+
+func (gsp GetSomeProducts) generateDiscount(psR []*product.Product) (ps []*product.Product) {
+	var discountGenerator product.DiscountGenerator
+	ps = make([]*product.Product, len(psR))
+	for i, p := range psR {
+		discountGenerator = product.NewDiscountGenerator(p.Vault, p.Port, p.Quantity, p.ShippingPrice)
+		p.Discount = discountGenerator.Generate()
+		ps[i] = p
+	}
 	return
 }

@@ -10,27 +10,29 @@ import (
 
 type GetProduct struct{}
 
-func (gl GetProduct) Do(c *gin.Context) {
+func (gp GetProduct) Do(c *gin.Context) {
 	repo, ok := getProductRepository(c)
 	if !ok {
 		return
 	}
 
-	id, ok := gl.readProductID(c)
+	id, ok := gp.readProductID(c)
 	if !ok {
 		return
 	}
 
-	p, ok := gl.getProductFromDB(c, id, repo)
+	p, ok := gp.getProductFromDB(c, id, repo)
 	if !ok {
 		return
 	}
+
+	p = gp.generateDiscount(p)
 
 	c.JSON(http.StatusOK, p)
 }
 
 func (gp GetProduct) readProductID(c *gin.Context) (id int, ok bool) {
-	return readIntParam(c, "id")
+	return readIntFromURL(c, "id", false)
 }
 
 func (gp GetProduct) getProductFromDB(c *gin.Context, id int, repo database.ProductRepository) (p product.Product, ok bool) {
@@ -40,5 +42,12 @@ func (gp GetProduct) getProductFromDB(c *gin.Context, id int, repo database.Prod
 		return
 	}
 	ok = true
+	return
+}
+
+func (gp GetProduct) generateDiscount(pr product.Product) (p product.Product) {
+	p = pr
+	discountGenerator := product.NewDiscountGenerator(p.Vault, p.Port, p.Quantity, p.ShippingPrice)
+	p.Discount = discountGenerator.Generate()
 	return
 }

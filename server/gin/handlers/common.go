@@ -2,15 +2,18 @@ package handlers
 
 import (
 	"fmt"
+	"net/http"
 	"strconv"
 
 	"github.com/coffemanfp/test/database"
+	"github.com/coffemanfp/test/server/errors"
 	"github.com/gin-gonic/gin"
 )
 
 func readRequestData(c *gin.Context, v interface{}) (ok bool) {
 	err := c.ShouldBindJSON(v)
 	if err != nil {
+		err = errors.NewHTTPError(http.StatusBadRequest, err.Error())
 		handleError(c, err)
 		return
 	}
@@ -48,8 +51,13 @@ func getProductRepository(c *gin.Context) (repo database.ProductRepository, ok b
 	return
 }
 
-func readIntParam(c *gin.Context, param string) (v int, ok bool) {
-	p := c.Param(param)
+func readIntFromURL(c *gin.Context, param string, isQueryParam bool) (v int, ok bool) {
+	var p string
+	if isQueryParam {
+		p = c.Query(param)
+	} else {
+		p = c.Param(param)
+	}
 	if p == "" {
 		ok = true
 		return
@@ -57,6 +65,31 @@ func readIntParam(c *gin.Context, param string) (v int, ok bool) {
 	v, err := strconv.Atoi(p)
 	if err != nil {
 		err = fmt.Errorf("invalid %s param: %s", param, p)
+		err = errors.NewHTTPError(http.StatusUnprocessableEntity, err.Error())
+		handleError(c, err)
+		return
+	}
+
+	ok = true
+	return
+}
+
+func readFloatFromURL(c *gin.Context, param string, isQueryParam bool) (v float64, ok bool) {
+	var p string
+	if isQueryParam {
+		p = c.Query(param)
+	} else {
+		p = c.Param(param)
+
+	}
+	if p == "" {
+		ok = true
+		return
+	}
+	v, err := strconv.ParseFloat(p, 64)
+	if err != nil {
+		err = fmt.Errorf("invalid %s param: %s", param, p)
+		err = errors.NewHTTPError(http.StatusUnprocessableEntity, err.Error())
 		handleError(c, err)
 		return
 	}
@@ -66,7 +99,7 @@ func readIntParam(c *gin.Context, param string) (v int, ok bool) {
 }
 
 func readPagination(c *gin.Context) (page int, ok bool) {
-	page, ok = readIntParam(c, "page")
+	page, ok = readIntFromURL(c, "page", false)
 	return
 }
 

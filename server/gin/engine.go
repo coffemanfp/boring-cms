@@ -30,6 +30,7 @@ func New(conf config.ConfigInfo, db database.Database) server.Engine {
 	ge.setCommonMiddlewares(v1)
 	ge.setAuthHandlers(v1)
 	ge.setProductHandlers(v1)
+	ge.setSearchHandlers(v1)
 	ge.setClientHandlers(v1)
 	return ge.r
 }
@@ -41,15 +42,21 @@ func (ge GinEngine) setAuthHandlers(r *gin.RouterGroup) {
 }
 
 func (ge GinEngine) setProductHandlers(r *gin.RouterGroup) {
-	product := r.Group("/product")
+	product := r.Group("/products")
 	product.Use(authorize(ge.conf.Server.SecretKey))
 	product.GET("/:id", handlers.GetProduct{}.Do)
 	product.GET("", handlers.GetSomeProducts{}.Do)
 	product.POST("", handlers.CreateProduct{}.Do)
 }
 
+func (ge GinEngine) setSearchHandlers(r *gin.RouterGroup) {
+	product := r.Group("/search")
+	product.Use(authorize(ge.conf.Server.SecretKey))
+	product.GET("", handlers.Search{}.Do)
+}
+
 func (ge GinEngine) setClientHandlers(r *gin.RouterGroup) {
-	client := r.Group("/client")
+	client := r.Group("/clients")
 	client.Use(authorize(ge.conf.Server.SecretKey))
 	client.GET("", handlers.GetSomeClients{}.Do)
 	client.GET("/:id", handlers.GetClient{}.Do)

@@ -50,9 +50,15 @@ func setUpDatabase(conf config.ConfigInfo) (db database.Database, err error) {
 		return
 	}
 
+	productRepo, err := psql.NewProductRepository(db.Conn.(*psql.PostgreSQLConnector))
+	if err != nil {
+		return
+	}
+
 	db.Repositories = map[database.RepositoryID]interface{}{
-		database.AUTH_REPOSITORY:   authRepo,
-		database.CLIENT_REPOSITORY: clientRepo,
+		database.AUTH_REPOSITORY:    authRepo,
+		database.CLIENT_REPOSITORY:  clientRepo,
+		database.PRODUCT_REPOSITORY: productRepo,
 	}
 	return
 }

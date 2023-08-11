@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS product (
     vehicle_plate varchar not null,
     port integer,
     vault integer,
-
+    quantity integer not null,
+ 
     primary key (id)
 );

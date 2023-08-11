@@ -30,7 +30,7 @@ func (gc GetClient) Do(c *gin.Context) {
 }
 
 func (gc GetClient) readClientID(c *gin.Context) (id int, ok bool) {
-	return readIntParam(c, "id")
+	return readIntFromURL(c, "id", false)
 }
 
 func (gc GetClient) getClientFromDB(c *gin.Context, repo database.ClientRepository, id int) (cl client.Client, ok bool) {
