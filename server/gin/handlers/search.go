@@ -42,6 +42,7 @@ func (s Search) readSearch(c *gin.Context) (srch search.Search, ok bool) {
 	endJoinedAt := c.Query("endJoinedAt")
 	startDeliveredAt := c.Query("startDeliveredAt")
 	endDeliveredAt := c.Query("endDeliveredAt")
+	srch.ClientID = c.GetInt("id")
 	srch.Port, ok = readIntFromURL(c, "port", true)
 	if !ok {
 		return
@@ -55,6 +56,14 @@ func (s Search) readSearch(c *gin.Context) (srch search.Search, ok bool) {
 		return
 	}
 	srch.PriceRange.End, ok = readFloatFromURL(c, "endPrice", true)
+	if !ok {
+		return
+	}
+	srch.QuantityRange.Start, ok = readIntFromURL(c, "startQuantity", true)
+	if !ok {
+		return
+	}
+	srch.QuantityRange.End, ok = readIntFromURL(c, "endQuantity", true)
 	if !ok {
 		return
 	}
@@ -104,7 +113,14 @@ func (s Search) generateDiscount(psR []*product.Product) (ps []*product.Product)
 	var discountGenerator product.DiscountGenerator
 	ps = make([]*product.Product, len(psR))
 	for i, p := range psR {
-		discountGenerator = product.NewDiscountGenerator(p.Vault, p.Port, p.Quantity, p.ShippingPrice)
+		var vault, port int
+		if p.Vault != nil {
+			vault = *p.Vault
+		}
+		if p.Port != nil {
+			port = *p.Port
+		}
+		discountGenerator = product.NewDiscountGenerator(vault, port, *p.Quantity, *p.ShippingPrice)
 		p.Discount = discountGenerator.Generate()
 		ps[i] = p
 	}

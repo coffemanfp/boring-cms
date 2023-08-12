@@ -32,7 +32,7 @@ func (gsp GetSomeProducts) Do(c *gin.Context) {
 }
 
 func (gsp GetSomeProducts) getFromDB(c *gin.Context, repo database.ProductRepository, page int) (ps []*product.Product, ok bool) {
-	ps, err := repo.Get(page)
+	ps, err := repo.Get(page, c.GetInt("id"))
 	if err != nil {
 		handleError(c, err)
 		return
@@ -45,7 +45,14 @@ func (gsp GetSomeProducts) generateDiscount(psR []*product.Product) (ps []*produ
 	var discountGenerator product.DiscountGenerator
 	ps = make([]*product.Product, len(psR))
 	for i, p := range psR {
-		discountGenerator = product.NewDiscountGenerator(p.Vault, p.Port, p.Quantity, p.ShippingPrice)
+		var vault, port int
+		if p.Vault != nil {
+			vault = *p.Vault
+		}
+		if p.Port != nil {
+			port = *p.Port
+		}
+		discountGenerator = product.NewDiscountGenerator(vault, port, *p.Quantity, *p.ShippingPrice)
 		p.Discount = discountGenerator.Generate()
 		ps[i] = p
 	}

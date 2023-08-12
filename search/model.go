@@ -3,6 +3,7 @@ package search
 import "time"
 
 type Search struct {
+	ClientID         int
 	GuideNumber      string
 	Type             string
 	Port             int

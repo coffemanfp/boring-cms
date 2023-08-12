@@ -47,6 +47,8 @@ func (ge GinEngine) setProductHandlers(r *gin.RouterGroup) {
 	product.GET("/:id", handlers.GetProduct{}.Do)
 	product.GET("", handlers.GetSomeProducts{}.Do)
 	product.POST("", handlers.CreateProduct{}.Do)
+	product.PUT("/:id", handlers.UpdateProduct{}.Do)
+	product.DELETE("/:id", handlers.DeleteProduct{}.Do)
 }
 
 func (ge GinEngine) setSearchHandlers(r *gin.RouterGroup) {
