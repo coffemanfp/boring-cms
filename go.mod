@@ -1,4 +1,4 @@
-module github.com/coffemanfp/test
+module github.com/coffemanfp/docucentertest
 
 go 1.20
 
@@ -6,10 +6,16 @@ require (
 	github.com/gin-gonic/gin v1.9.1
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/lib/pq v1.10.9
+	github.com/stretchr/testify v1.8.4
 	golang.org/x/crypto v0.12.0
 )
 
-require github.com/mattn/go-colorable v0.1.12 // indirect
+require (
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/mattn/go-colorable v0.1.12 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/stretchr/objx v0.5.0 // indirect
+)
 
 require (
 	github.com/bytedance/sonic v1.9.1 // indirect

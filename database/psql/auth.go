@@ -4,38 +4,38 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/coffemanfp/test/auth"
-	"github.com/coffemanfp/test/client"
-	"github.com/coffemanfp/test/database"
+	"github.com/coffemanfp/docucentertest/auth"
+	"github.com/coffemanfp/docucentertest/client"
+	"github.com/coffemanfp/docucentertest/database"
 )
 
+// AuthRepository is a struct representing a repository for authentication-related database operations.
 type AuthRepository struct {
 	db *sql.DB
 }
 
-// NewAuthRepository initializes a new auth repository instance.
-//
-//	@param conn *PostgreSQLConnector: is the PostgreSQLConnector handler.
-//	@return repo database.AuthRepository: is the final interface to keep
-//	 the AuthRepository implementation.
-//	@return err error: database connection error.
+// NewAuthRepository creates a new AuthRepository instance.
 func NewAuthRepository(conn *PostgreSQLConnector) (repo database.AuthRepository, err error) {
+	// Get a database connection from the connector.
 	db, err := conn.getConn()
 	if err != nil {
 		return
 	}
+	// Initialize and return the AuthRepository.
 	repo = AuthRepository{
 		db: db,
 	}
 	return
 }
 
+// GetIdAndHashedPassword retrieves the client's ID and hashed password from the database based on the provided auth credentials.
 func (ar AuthRepository) GetIdAndHashedPassword(auth auth.Auth) (id int, hashed string, err error) {
 	table := "client"
 	query := `
-		select id, password from client where nickname = $1
+		select id, password from client where username = $1
 	`
 
+	// Query the database for the ID and hashed password based on the provided username.
 	err = ar.db.QueryRow(query, auth.Username).Scan(&id, &hashed)
 	if err != nil {
 		err = errorInRow(table, "get", err)
@@ -43,10 +43,8 @@ func (ar AuthRepository) GetIdAndHashedPassword(auth auth.Auth) (id int, hashed 
 	return
 }
 
+// Register registers a new client in the database and returns the assigned ID.
 func (ar AuthRepository) Register(client client.Client) (id int, err error) {
-	fmt.Println("Contraseña a registrar:")
-	fmt.Println(client.Auth.Password)
-	fmt.Println(client.Password)
 	table := "client"
 	query := fmt.Sprintf(`
 		insert into
@@ -57,6 +55,7 @@ func (ar AuthRepository) Register(client client.Client) (id int, err error) {
 			id
 	`, table)
 
+	// Insert the new client's details into the database and retrieve the assigned ID.
 	err = ar.db.QueryRow(query, client.Name, client.Surname, client.Auth.Username, client.Auth.Password, client.CreatedAt).Scan(&id)
 	if err != nil {
 		err = errorInRow(table, "insert", err)

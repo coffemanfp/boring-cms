@@ -5,14 +5,14 @@ import (
 	"regexp"
 )
 
+// Regular expression to match a valid username format.
 var nicknameRegex = regexp.MustCompile(`^[a-z0-9_-]{3,32}$`)
 
-// ValidateUsername validate the username with a regular expression.
-//
-//	@param username string: username to validate.
-//	 @return err error: don't match the regex with the string provided.
+// ValidateUsername checks if the provided username adheres to the valid format.
 func ValidateUsername(username string) (err error) {
+	// Check if the username matches the defined regular expression pattern.
 	if !nicknameRegex.MatchString(username) {
+		// If the username format is invalid, create an error indicating the issue.
 		err = fmt.Errorf("invalid username: invalid username format of %s", username)
 	}
 	return
