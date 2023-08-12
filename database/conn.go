@@ -10,6 +10,5 @@ type Database struct {
 type DatabaseConnector interface {
 
 	// Connect creates new connection of the database implementation.
-	//  @return $1 error: database connection error
 	Connect() error
 }

@@ -5,8 +5,10 @@ import "fmt"
 // RepositoryID is the key to use for the repositories hashmap.
 type RepositoryID string
 
+// Repositories is a list of repositories
 type Repositories map[RepositoryID]interface{}
 
+// GetRepository gets a repository by its ID.
 func GetRepository[t any](repoMap Repositories, id RepositoryID) (repo t, err error) {
 	repo, ok := repoMap[id].(t)
 	if !ok {

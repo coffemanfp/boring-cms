@@ -10,6 +10,9 @@ const AUTH_REPOSITORY RepositoryID = "AUTH"
 
 // AuthRepository defines the behaviors to be used by a AuthRepository implementation.
 type AuthRepository interface {
+	// GetIdAndHashedPassword retrieves the user ID and hashed password for the given authentication data.
 	GetIdAndHashedPassword(auth auth.Auth) (id int, hash string, err error)
+
+	// Register registers a new client with authentication and returns the assigned ID.
 	Register(client client.Client) (id int, err error)
 }

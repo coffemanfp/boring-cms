@@ -1,29 +1,30 @@
 package config
 
-// Config is a interface to get the config of a given implementation.
+// Config is an interface that defines a method to retrieve configuration information.
 type Config interface {
-	// Get will get all the ConfigInfo available in the implementation
 	Get() ConfigInfo
 }
 
-// ConfigInfo is the common	 structure to contain all the config fields.
+// ConfigInfo holds various configuration settings.
 type ConfigInfo struct {
-	Server               server               `yaml:"server"`
-	PostgreSQLProperties postgreSQLProperties `yaml:"psql"`
+	Server               server               `yaml:"server"` // Server configuration
+	PostgreSQLProperties postgreSQLProperties `yaml:"psql"`   // PostgreSQL database properties
 }
 
+// server represents server configuration settings.
 type server struct {
-	Port           int      `yaml:"port"`
-	Host           string   `yaml:"host"`
-	AllowedOrigins []string `yaml:"allowed_origins"`
-	SecretKey      string   `yaml:"secret_key"`
-	JWTLifespan    int      `yaml:"jwt_lifespan"`
+	Port           int      `yaml:"port"`            // Port the server should listen on
+	Host           string   `yaml:"host"`            // Host address for the server
+	AllowedOrigins []string `yaml:"allowed_origins"` // List of allowed origins for CORS
+	SecretKey      string   `yaml:"secret_key"`      // Secret key for JWT signing
+	JWTLifespan    int      `yaml:"jwt_lifespan"`    // Lifespan of JWT tokens
 }
 
+// postgreSQLProperties holds properties for connecting to a PostgreSQL database.
 type postgreSQLProperties struct {
-	User     string `yaml:"user"`
-	Password string `yaml:"password"`
-	Name     string `yaml:"name"`
-	Host     string `yaml:"host"`
-	Port     int    `yaml:"port"`
+	User     string `yaml:"user"`     // Username for PostgreSQL connection
+	Password string `yaml:"password"` // Password for PostgreSQL connection
+	Name     string `yaml:"name"`     // Name of the database
+	Host     string `yaml:"host"`     // Host address of the PostgreSQL server
+	Port     int    `yaml:"port"`     // Port number for PostgreSQL connection
 }
