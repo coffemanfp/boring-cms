@@ -4,9 +4,10 @@ import (
 	"database/sql"
 	"fmt"
 
-	_ "github.com/lib/pq"
+	_ "github.com/lib/pq" // Import the PostgreSQL driver package (underscore indicates import for its side effects).
 )
 
+// properties holds the connection properties for the PostgreSQL database.
 type properties struct {
 	user string
 	pass string
@@ -15,20 +16,21 @@ type properties struct {
 	port int
 }
 
-// PostgreSQLConnector implements a database.DatabaseConnector handler.
-//
-//	It is a handler for the PostgreSQL connections.
+// PostgreSQLConnector is a struct representing a PostgreSQL database connector.
 type PostgreSQLConnector struct {
-	props properties
-	db    *sql.DB
+	props properties // Connection properties
+	db    *sql.DB    // Database connection instance
 }
 
+// Connect establishes a connection to the PostgreSQL database.
 func (p *PostgreSQLConnector) Connect() (err error) {
+	// Open a new database connection using the "postgres" driver and connection URL.
 	db, err := sql.Open("postgres", connURL(p.props))
 	if err != nil {
 		return
 	}
 
+	// Ping the database to check if the connection is alive and working.
 	err = db.Ping()
 	if err != nil {
 		err = fmt.Errorf("failed to ping database: %s", err)
@@ -38,6 +40,7 @@ func (p *PostgreSQLConnector) Connect() (err error) {
 	return
 }
 
+// getConn returns the existing database connection or establishes a new one if not available.
 func (p PostgreSQLConnector) getConn() (conn *sql.DB, err error) {
 	if p.db == nil {
 		err = p.Connect()
@@ -45,6 +48,7 @@ func (p PostgreSQLConnector) getConn() (conn *sql.DB, err error) {
 			return
 		}
 	}
+	// Ping the database to ensure the connection is still alive.
 	err = p.db.Ping()
 	if err != nil {
 		err = fmt.Errorf("failed to ping database: %s", err)
@@ -55,14 +59,7 @@ func (p PostgreSQLConnector) getConn() (conn *sql.DB, err error) {
 	return
 }
 
-// NewPostgreSQLConnector initializes a new *PostgreSQLConnector.
-//
-//	@param user string: PostgreSQL connection property.
-//	@param pass string: PostgreSQL connection property.
-//	@param name string: PostgreSQL connection property.
-//	@param host string: PostgreSQL connection property.
-//	@param port int: PostgreSQL connection property.
-//	@return conn *PostgreSQLConnector: new *PostgreSQLConnector instance.
+// NewPostgreSQLConnector creates a new PostgreSQLConnector instance with the provided connection details.
 func NewPostgreSQLConnector(user, pass, name, host string, port int) (conn *PostgreSQLConnector) {
 	return &PostgreSQLConnector{
 		props: properties{
@@ -75,6 +72,7 @@ func NewPostgreSQLConnector(user, pass, name, host string, port int) (conn *Post
 	}
 }
 
+// connURL generates the connection URL for the PostgreSQL database.
 func connURL(props properties) string {
 	return fmt.Sprintf("postgres://%s:%s@%s:%d/%s?sslmode=%s", props.user, props.pass, props.host, props.port, props.name, "disable")
 }
