@@ -36,7 +36,7 @@ func (gp GetProduct) readProductID(c *gin.Context) (id int, ok bool) {
 }
 
 func (gp GetProduct) getProductFromDB(c *gin.Context, id int, repo database.ProductRepository) (p product.Product, ok bool) {
-	p, err := repo.GetOne(id)
+	p, err := repo.GetOne(id, c.GetInt("id"))
 	if err != nil {
 		handleError(c, err)
 		return
@@ -47,7 +47,14 @@ func (gp GetProduct) getProductFromDB(c *gin.Context, id int, repo database.Prod
 
 func (gp GetProduct) generateDiscount(pr product.Product) (p product.Product) {
 	p = pr
-	discountGenerator := product.NewDiscountGenerator(p.Vault, p.Port, p.Quantity, p.ShippingPrice)
+	var vault, port int
+	if p.Vault != nil {
+		vault = *p.Vault
+	}
+	if p.Port != nil {
+		port = *p.Port
+	}
+	discountGenerator := product.NewDiscountGenerator(vault, port, *p.Quantity, *p.ShippingPrice)
 	p.Discount = discountGenerator.Generate()
 	return
 }
