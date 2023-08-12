@@ -22,6 +22,7 @@ type server struct {
 
 // postgreSQLProperties holds properties for connecting to a PostgreSQL database.
 type postgreSQLProperties struct {
+	URL      string `yaml:"url"`      // Full URL PostgreSQL connection
 	User     string `yaml:"user"`     // Username for PostgreSQL connection
 	Password string `yaml:"password"` // Password for PostgreSQL connection
 	Name     string `yaml:"name"`     // Name of the database

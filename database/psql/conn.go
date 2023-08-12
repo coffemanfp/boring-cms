@@ -9,6 +9,7 @@ import (
 
 // properties holds the connection properties for the PostgreSQL database.
 type properties struct {
+	url  string
 	user string
 	pass string
 	name string
@@ -60,9 +61,10 @@ func (p PostgreSQLConnector) getConn() (conn *sql.DB, err error) {
 }
 
 // NewPostgreSQLConnector creates a new PostgreSQLConnector instance with the provided connection details.
-func NewPostgreSQLConnector(user, pass, name, host string, port int) (conn *PostgreSQLConnector) {
+func NewPostgreSQLConnector(url, user, pass, name, host string, port int) (conn *PostgreSQLConnector) {
 	return &PostgreSQLConnector{
 		props: properties{
+			url:  url,
 			user: user,
 			pass: pass,
 			name: name,
@@ -74,5 +76,8 @@ func NewPostgreSQLConnector(user, pass, name, host string, port int) (conn *Post
 
 // connURL generates the connection URL for the PostgreSQL database.
 func connURL(props properties) string {
+	if props.url != "" {
+		return props.url
+	}
 	return fmt.Sprintf("postgres://%s:%s@%s:%d/%s?sslmode=%s", props.user, props.pass, props.host, props.port, props.name, "disable")
 }
