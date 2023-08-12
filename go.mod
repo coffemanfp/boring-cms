@@ -1,4 +1,4 @@
-module github.com/coffemanfp/test
+module github.com/coffemanfp/docucentertest
 
 go 1.20
 

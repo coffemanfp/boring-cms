@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"github.com/coffemanfp/test/config"
-	"github.com/coffemanfp/test/database"
+	"github.com/coffemanfp/docucentertest/config"
+	"github.com/coffemanfp/docucentertest/database"
 )
 
 var db database.Repositories

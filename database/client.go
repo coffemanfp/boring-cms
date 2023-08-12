@@ -1,6 +1,6 @@
 package database
 
-import "github.com/coffemanfp/test/client"
+import "github.com/coffemanfp/docucentertest/client"
 
 // Constant CLIENT_REPOSITORY is used to uniquely identify the client repository.
 const CLIENT_REPOSITORY RepositoryID = "CLIENT_REPOSITORYY"

@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/coffemanfp/test/config"
-	"github.com/coffemanfp/test/database"
-	"github.com/coffemanfp/test/database/psql"
-	"github.com/coffemanfp/test/server/gin"
+	"github.com/coffemanfp/docucentertest/config"
+	"github.com/coffemanfp/docucentertest/database"
+	"github.com/coffemanfp/docucentertest/database/psql"
+	"github.com/coffemanfp/docucentertest/server/gin"
 )
 
 func main() {

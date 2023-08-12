@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/coffemanfp/test/client"
-	"github.com/coffemanfp/test/database"
+	"github.com/coffemanfp/docucentertest/client"
+	"github.com/coffemanfp/docucentertest/database"
 )
 
 // ClientRepository is a struct representing a repository for client-related database operations.

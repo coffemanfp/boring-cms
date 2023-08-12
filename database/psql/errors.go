@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/coffemanfp/test/database/errors"
+	"github.com/coffemanfp/docucentertest/database/errors"
 	"github.com/lib/pq"
 )
 

@@ -1,8 +1,8 @@
 package database
 
 import (
-	"github.com/coffemanfp/test/product"
-	"github.com/coffemanfp/test/search"
+	"github.com/coffemanfp/docucentertest/product"
+	"github.com/coffemanfp/docucentertest/search"
 )
 
 // Constant PRODUCT_REPOSITORY is used to uniquely identify the product repository.

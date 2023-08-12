@@ -6,8 +6,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/coffemanfp/test/config"
-	"github.com/coffemanfp/test/database"
+	"github.com/coffemanfp/docucentertest/config"
+	"github.com/coffemanfp/docucentertest/database"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/coffemanfp/test/server/errors"
+	"github.com/coffemanfp/docucentertest/server/errors"
 	"golang.org/x/crypto/bcrypt"
 )
 

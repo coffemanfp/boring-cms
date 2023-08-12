@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/coffemanfp/test/database"
-	"github.com/coffemanfp/test/product"
-	"github.com/coffemanfp/test/search"
+	"github.com/coffemanfp/docucentertest/database"
+	"github.com/coffemanfp/docucentertest/product"
+	"github.com/coffemanfp/docucentertest/search"
 )
 
 // ProductRepository represents a repository for managing products in PostgreSQL.

@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/coffemanfp/test/config"
-	dbErrors "github.com/coffemanfp/test/database/errors"
-	sErrors "github.com/coffemanfp/test/server/errors"
+	"github.com/coffemanfp/docucentertest/config"
+	dbErrors "github.com/coffemanfp/docucentertest/database/errors"
+	sErrors "github.com/coffemanfp/docucentertest/server/errors"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"

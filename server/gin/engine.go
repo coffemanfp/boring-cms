@@ -1,10 +1,10 @@
 package gin
 
 import (
-	"github.com/coffemanfp/test/config"
-	"github.com/coffemanfp/test/database"
-	"github.com/coffemanfp/test/server"
-	"github.com/coffemanfp/test/server/gin/handlers"
+	"github.com/coffemanfp/docucentertest/config"
+	"github.com/coffemanfp/docucentertest/database"
+	"github.com/coffemanfp/docucentertest/server"
+	"github.com/coffemanfp/docucentertest/server/gin/handlers"
 	"github.com/gin-gonic/gin"
 )
 

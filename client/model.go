@@ -3,8 +3,8 @@ package client
 import (
 	"time"
 
-	"github.com/coffemanfp/test/auth"
-	"github.com/coffemanfp/test/utils"
+	"github.com/coffemanfp/docucentertest/auth"
+	"github.com/coffemanfp/docucentertest/utils"
 )
 
 // Client represents a client entity with authentication details.

@@ -4,9 +4,9 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/coffemanfp/test/auth"
-	"github.com/coffemanfp/test/client"
-	"github.com/coffemanfp/test/database"
+	"github.com/coffemanfp/docucentertest/auth"
+	"github.com/coffemanfp/docucentertest/client"
+	"github.com/coffemanfp/docucentertest/database"
 )
 
 // AuthRepository is a struct representing a repository for authentication-related database operations.

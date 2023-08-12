@@ -1,8 +1,8 @@
 package database
 
 import (
-	"github.com/coffemanfp/test/auth"
-	"github.com/coffemanfp/test/client"
+	"github.com/coffemanfp/docucentertest/auth"
+	"github.com/coffemanfp/docucentertest/client"
 )
 
 // AUTH_REPOSITORY is the key to be used when creating the repositories hashmap.

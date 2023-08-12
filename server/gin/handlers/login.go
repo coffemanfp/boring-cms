@@ -3,10 +3,10 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/coffemanfp/test/auth"
-	"github.com/coffemanfp/test/client"
-	"github.com/coffemanfp/test/database"
-	"github.com/coffemanfp/test/server/errors"
+	"github.com/coffemanfp/docucentertest/auth"
+	"github.com/coffemanfp/docucentertest/client"
+	"github.com/coffemanfp/docucentertest/database"
+	"github.com/coffemanfp/docucentertest/server/errors"
 	"github.com/gin-gonic/gin"
 )
 

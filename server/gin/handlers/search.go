@@ -3,9 +3,9 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/coffemanfp/test/database"
-	"github.com/coffemanfp/test/product"
-	"github.com/coffemanfp/test/search"
+	"github.com/coffemanfp/docucentertest/database"
+	"github.com/coffemanfp/docucentertest/product"
+	"github.com/coffemanfp/docucentertest/search"
 	"github.com/gin-gonic/gin"
 )
 

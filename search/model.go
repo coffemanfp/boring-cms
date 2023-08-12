@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/coffemanfp/test/product"
+	"github.com/coffemanfp/docucentertest/product"
 )
 
 // Search represents the search criteria for filtering products.

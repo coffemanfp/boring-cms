@@ -3,7 +3,7 @@ package client
 import (
 	"testing"
 
-	"github.com/coffemanfp/test/auth"
+	"github.com/coffemanfp/docucentertest/auth"
 	"github.com/stretchr/testify/assert"
 	"golang.org/x/crypto/bcrypt"
 )
