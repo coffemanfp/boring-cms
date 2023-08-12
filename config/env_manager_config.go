@@ -46,6 +46,7 @@ func newConfigWithEnvVars() (conf ConfigInfo, err error) {
 			SecretKey:      os.Getenv("SRV_SECRET_KEY"),
 		},
 		PostgreSQLProperties: postgreSQLProperties{
+			URL:      os.Getenv("DATABASE_URL"),
 			User:     os.Getenv("DB_USER"),
 			Password: os.Getenv("DB_PASS"),
 			Name:     os.Getenv("DB_NAME"),

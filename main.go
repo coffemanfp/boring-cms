@@ -33,6 +33,7 @@ func main() {
 func setUpDatabase(conf config.ConfigInfo) (db database.Database, err error) {
 	// Create a new PostgreSQL database connector.
 	db.Conn = psql.NewPostgreSQLConnector(
+		conf.PostgreSQLProperties.URL,
 		conf.PostgreSQLProperties.User,
 		conf.PostgreSQLProperties.Password,
 		conf.PostgreSQLProperties.Name,
