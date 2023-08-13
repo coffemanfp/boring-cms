@@ -56,16 +56,20 @@ func New(clientID, port, vault int, guideNumber, productType, vehiclePlate strin
 		return
 	}
 
-	// Validate and set guide number.
-	err = product.ValidateGuideNumber(&guideNumber)
-	if err != nil {
-		return
+	if guideNumber != "" {
+		// Validate and set guide number.
+		err = product.ValidateGuideNumber(&guideNumber)
+		if err != nil {
+			return
+		}
 	}
 
-	// Validate and set vehicle plate.
-	err = product.ValidateVehiclePlate(&vehiclePlate)
-	if err != nil {
-		return
+	if vehiclePlate != "" {
+		// Validate and set vehicle plate.
+		err = product.ValidateVehiclePlate(&vehiclePlate)
+		if err != nil {
+			return
+		}
 	}
 
 	// Validate and set price range.
@@ -112,6 +116,7 @@ func New(clientID, port, vault int, guideNumber, productType, vehiclePlate strin
 
 	s.ClientID = clientID
 	s.Port = port
+	s.Type = productType
 	s.Vault = vault
 	s.GuideNumber = guideNumber
 	s.VehiclePlate = vehiclePlate
