@@ -1,6 +1,6 @@
-# Logistics Management System
+# Boring Customer Management System
 
-Welcome to the Logistics Management System! This project is a basic implementation of a logistics management system, developed as part of a startup's technical evaluation process. This README will provide you with an overview of the project's components, functionality, and how to set it up.
+Welcome to the Boring Management System! This project is a basic implementation of a logistics management system. This README will provide you with an overview of the project's components, functionality, and how to set it up.
 
 ## Table of Contents
 
@@ -15,7 +15,7 @@ Welcome to the Logistics Management System! This project is a basic implementati
 
 ## Introduction
 
-The Customs Management System is a web application designed to manage various aspects of customs operations. It includes features for registering clients, managing products, handling authentication, and conducting searches based on specific criteria.
+The Boring Management System is a web application designed to manage various aspects of customs operations. It includes features for registering clients, managing products, handling authentication, and conducting searches based on specific criteria.
 
 ## Features
 
